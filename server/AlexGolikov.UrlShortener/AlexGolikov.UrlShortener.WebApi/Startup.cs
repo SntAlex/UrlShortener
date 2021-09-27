@@ -38,7 +38,9 @@ namespace AlexGolikov.UrlShortener.WebApi
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUrlShortenerService, UrlShortenerService>();
-            
+
+            services.AddCors();
+
             services.AddScoped(_ => new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new ShortUrlProfile());
@@ -96,6 +98,11 @@ namespace AlexGolikov.UrlShortener.WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(
+                options => options.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader()
+            );
+
 
             app.UseEndpoints(endpoints =>
             {
