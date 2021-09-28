@@ -15,6 +15,9 @@ using Microsoft.Extensions.Logging;
 
 namespace AlexGolikov.UrlShortener.Services
 {
+    /// <summary>
+    /// Url shortener service
+    /// </summary>
     public class UrlShortenerService : BaseService<UrlShortenerService>, IUrlShortenerService
     {
         #region constructor
@@ -89,6 +92,12 @@ namespace AlexGolikov.UrlShortener.Services
             }
         }
 
+        /// <summary>
+        /// Takes random amount of symbols in whole string
+        /// </summary>
+        /// <param name="input">String input</param>
+        /// <param name="amount">Amount of symbols</param>
+        /// <returns>String result</returns>
         private string TakeRandomSymbols(string input, int amount)
         {
             var sb = new StringBuilder();

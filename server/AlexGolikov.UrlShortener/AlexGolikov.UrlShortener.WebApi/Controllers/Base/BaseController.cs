@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AlexGolikov.UrlShortener.WebApi.Controllers.Base
 {
+    /// <summary>
+    /// Base controller class
+    /// </summary>
     [ApiController]
     [Route("api/v1/[controller]")]
     public abstract class BaseController : ControllerBase

@@ -2,6 +2,9 @@
 
 namespace AlexGolikov.UrlShortener.Services.Exceptions
 {
+    /// <summary>
+    /// Internal server exception
+    /// </summary>
     public class InternalServerException : BaseException
     {
         public InternalServerException() :

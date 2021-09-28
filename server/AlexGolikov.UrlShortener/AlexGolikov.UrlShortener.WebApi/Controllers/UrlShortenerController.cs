@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AlexGolikov.UrlShortener.WebApi.Controllers
 {
+    /// <summary>
+    /// UrlShortener controller class
+    /// </summary>
     public class UrlShortenerController : BaseController
     {
         private readonly IUrlShortenerService _urlShortenerService;
@@ -19,6 +22,11 @@ namespace AlexGolikov.UrlShortener.WebApi.Controllers
         }
         #endregion
 
+        /// <summary>
+        /// Create short url
+        /// </summary>
+        /// <param name="originalUrl">Original url model</param>
+        /// <returns>Short url</returns>
         [HttpPost]
         public ActionResult<string> CreateShortUrl(OriginalUrlModel originalUrl)
         {
@@ -27,6 +35,11 @@ namespace AlexGolikov.UrlShortener.WebApi.Controllers
             return Ok(result.Data.First().Url);
         }
 
+        /// <summary>
+        /// Get short url
+        /// </summary>
+        /// <param name="shortUrl">Short url</param>
+        /// <returns>Original url</returns>
         [HttpGet("{shortUrl}")]
         public ActionResult<string> GetShortUrl(string shortUrl)
         {

@@ -1,8 +1,10 @@
 ﻿using AlexGolikov.UrlShortener.Services.Exceptions.Base;
-using System;
 
 namespace AlexGolikov.UrlShortener.Services.Exceptions
 {
+    /// <summary>
+    /// Not found exception
+    /// </summary>
     public class NotFoundException : BaseException
     {
         public NotFoundException(string entityName) :

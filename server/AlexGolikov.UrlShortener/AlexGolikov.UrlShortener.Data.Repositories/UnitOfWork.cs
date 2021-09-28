@@ -8,6 +8,9 @@ using System.Collections.Generic;
 
 namespace AlexGolikov.UrlShortener.Data.Repositories
 {
+    /// <summary>
+    /// Unit of work
+    /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
         private readonly UrlShortenerContext _urlShortenerContext;

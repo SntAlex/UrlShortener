@@ -22,8 +22,6 @@ namespace AlexGolikov.UrlShortener.WebApi.Configuration
         {
             CreateMap<ShortUrl, ShortUrlDto>()
                 .ReverseMap();
-            CreateMap<ShortUrlDto, ShortUrlModel>()
-                .ReverseMap();
             CreateMap<string, ShortUrlDto>()
                 .ForMember(dest => dest.Url, 
                     opt => opt.MapFrom(src => src));

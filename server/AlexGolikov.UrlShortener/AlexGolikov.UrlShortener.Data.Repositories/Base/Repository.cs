@@ -8,6 +8,10 @@ using System.Linq.Expressions;
 
 namespace AlexGolikov.UrlShortener.Data.Repositories.Base
 {
+    /// <summary>
+    /// Base repository
+    /// </summary>
+    /// <typeparam name="TEntity">Entity type</typeparam>
     public class Repository<TEntity> : IRepository<TEntity>
        where TEntity : BaseEntity
     {

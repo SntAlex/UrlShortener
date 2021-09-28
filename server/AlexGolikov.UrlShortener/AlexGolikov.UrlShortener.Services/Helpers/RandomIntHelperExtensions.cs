@@ -1,14 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AlexGolikov.UrlShortener.Services.Helpers
 {
-    internal static class RandomIntHelperExtension
+    /// <summary>
+    /// Random int extensions
+    /// </summary>
+    internal static class RandomIntHelperExtensions
     {
+        /// <summary>
+        /// Get random int in range
+        /// </summary>
+        /// <param name="maxValue">Maximum int value</param>
+        /// <param name="minValue">Minimal int value</param>
+        /// <returns></returns>
         internal static int Next(this int maxValue, int minValue = 0)
         {
             if (minValue > maxValue)
