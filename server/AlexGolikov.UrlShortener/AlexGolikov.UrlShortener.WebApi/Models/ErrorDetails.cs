@@ -5,11 +5,13 @@
     /// </summary>
     public class ErrorDetails
     {
+        #region constructor
         public ErrorDetails(string message, int statusCode)
         {
             Message = message;
             StatusCode = statusCode;
         }
+        #endregion
 
         /// <summary>
         /// Error message

@@ -6,13 +6,11 @@ const UrlShortenerForm = () => {
     const [input, setInput] = useState('');
     const [shortUrl, setShortUrl] = useState('');
     const [error, setError] = useState('');
-    const [responseData, setResponseData] = useState();
 
     async function handleClick(event) {
         event.preventDefault();
         try {
             const response = await axios.post('https://localhost:8001/api/v1/UrlShortener', {url: input})
-            setResponseData(response);
             setShortUrl(response.data);
             setError('');
 
