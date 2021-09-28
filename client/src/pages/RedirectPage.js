@@ -14,9 +14,9 @@ const RedirectPage = () => {
             setError('');
 
         } catch (error){
-            if(error.response.data.message !== undefined && error.response.data.statusCode !== undefined){
-                setError(error.response.data.message + '\n' + 'Status code: ' + error.response.data.statusCode);
-            } else {
+            try {
+                setError(error.response.data.message + ' Status code: ' + error.response.data.statusCode);
+            } catch (error2) {
                 setError(error.message);
             }
         }

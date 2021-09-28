@@ -15,15 +15,18 @@ const UrlShortenerForm = () => {
             setError('');
 
         } catch (error){
-            if(error.response.data.errors !== undefined) {
-                setError(JSON.stringify(error.response.data.errors, null, 4));
-            } else if(error.response.data.message !== undefined && error.response.data.statusCode !== undefined){
-                setError(error.response.data.message + 'Status code: ' + error.response.data.statusCode);
-            } else {
+            try {
+                if(error.response.data.errors !== undefined) {
+                    setError(JSON.stringify(error.response.data.errors, null, 4));
+                } else if(error.response.data.message !== undefined && error.response.data.statusCode !== undefined){
+                    setError(error.response.data.message + ' Status code: ' + error.response.data.statusCode);
+                }
+            } catch (error2){
                 setError(error.message);
             }
         }
     }
+
 
     return (
         <form>
