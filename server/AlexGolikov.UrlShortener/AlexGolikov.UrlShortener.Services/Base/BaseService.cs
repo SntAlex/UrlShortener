@@ -12,14 +12,14 @@ namespace AlexGolikov.UrlShortener.Services.Base
     /// </summary>
     public abstract class BaseService : IBaseService<BaseDto, BaseEntity>
     {
-        protected readonly IMapper _mapper;
-        protected readonly IUnitOfWork _unitOfWork;
+        protected readonly IMapper Mapper;
+        protected readonly IUnitOfWork UnitOfWork;
 
         #region constructor
         protected BaseService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
+            Mapper = mapper;
+            UnitOfWork = unitOfWork;
         }
         #endregion
 

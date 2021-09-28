@@ -13,7 +13,6 @@ const RedirectPage = () => {
 
     useEffect(() =>{
         getOriginalLink();
-
     }, [window.location.pathname])
 
     function redirect(){

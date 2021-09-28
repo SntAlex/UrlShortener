@@ -28,14 +28,14 @@ namespace AlexGolikov.UrlShortener.Services
         {
             try
             {
-                var originalUrlEntity = _unitOfWork.GetRepository<OriginalUrl>()
+                var originalUrlEntity = UnitOfWork.GetRepository<OriginalUrl>()
                     .Get(url => url.Url == originalUrl.Url)
                     .FirstOrDefault();
 
                 if (originalUrlEntity == null)
                 {
-                    originalUrlEntity = _mapper.Map<OriginalUrl>(originalUrl);
-                    _unitOfWork.GetRepository<OriginalUrl>().Add(originalUrlEntity);
+                    originalUrlEntity = Mapper.Map<OriginalUrl>(originalUrl);
+                    UnitOfWork.GetRepository<OriginalUrl>().Add(originalUrlEntity);
                 }
 
                 var md5 = originalUrl.Url.ToMd5();
@@ -47,9 +47,9 @@ namespace AlexGolikov.UrlShortener.Services
                     Url = TakeRandomSymbols(base64Url, 6)
                 };
 
-                _unitOfWork.GetRepository<ShortUrl>().Add(shortUrlEntity);
-                _unitOfWork.Commit();
-                return new ServiceResult<ShortUrlDto>(_mapper.Map<ShortUrlDto>(shortUrlEntity));
+                UnitOfWork.GetRepository<ShortUrl>().Add(shortUrlEntity);
+                UnitOfWork.Commit();
+                return new ServiceResult<ShortUrlDto>(Mapper.Map<ShortUrlDto>(shortUrlEntity));
             }
             catch (ArgumentOutOfRangeException e)
             {
@@ -68,7 +68,7 @@ namespace AlexGolikov.UrlShortener.Services
         {
             try
             {
-                var shortUrlEntity = _unitOfWork.GetRepository<ShortUrl>()
+                var shortUrlEntity = UnitOfWork.GetRepository<ShortUrl>()
                     .Get(url => url.Url == shortUrl.Url)
                     .FirstOrDefault();
 
@@ -77,8 +77,8 @@ namespace AlexGolikov.UrlShortener.Services
                     throw new NotFoundException(shortUrl.Url);
                 }
 
-                var originalUrlEntity = _unitOfWork.GetRepository<OriginalUrl>().Get(shortUrlEntity.OriginalUrlId);
-                return new ServiceResult<OriginalUrlDto>(_mapper.Map<OriginalUrlDto>(originalUrlEntity));
+                var originalUrlEntity = UnitOfWork.GetRepository<OriginalUrl>().Get(shortUrlEntity.OriginalUrlId);
+                return new ServiceResult<OriginalUrlDto>(Mapper.Map<OriginalUrlDto>(originalUrlEntity));
             }
             catch (NotFoundException e)
             {
@@ -105,7 +105,6 @@ namespace AlexGolikov.UrlShortener.Services
             {
                 sb.Append(input[input.Length.Next()]);
             }
-
             return sb.ToString();
         }
     }
