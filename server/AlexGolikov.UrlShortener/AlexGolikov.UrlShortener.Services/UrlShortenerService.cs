@@ -11,12 +11,15 @@ using System.Text;
 using AlexGolikov.UrlShortener.Domain.Models.Dtos;
 using AlexGolikov.UrlShortener.Services.Exceptions;
 using AlexGolikov.UrlShortener.Services.Result;
+using Microsoft.Extensions.Logging;
 
 namespace AlexGolikov.UrlShortener.Services
 {
-    public class UrlShortenerService : BaseService, IUrlShortenerService
+    public class UrlShortenerService : BaseService<UrlShortenerService>, IUrlShortenerService
     {
-        public UrlShortenerService(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork) { }
+        #region constructor
+        public UrlShortenerService(IMapper mapper, IUnitOfWork unitOfWork, ILogger<UrlShortenerService> logger) : base(mapper, unitOfWork, logger) { }
+        #endregion
 
         public IServiceResult<ShortUrlDto> CreateShortUrl(OriginalUrlDto originalUrl)
         {
@@ -34,16 +37,11 @@ namespace AlexGolikov.UrlShortener.Services
 
                 var md5 = originalUrl.Url.ToMd5();
                 var base64Url = Convert.ToBase64String(md5);
-                var sb = new StringBuilder();
-                for (var i = 0; i < 6; i++)
-                {
-                    sb.Append(base64Url[base64Url.Length.Next()]);
-                }
-
+                
                 var shortUrlEntity = new ShortUrl
                 {
                     OriginalUrlId = originalUrlEntity.Id,
-                    Url = sb.ToString()
+                    Url = TakeRandomSymbols(base64Url, 6)
                 };
 
                 _unitOfWork.GetRepository<ShortUrl>().Add(shortUrlEntity);
@@ -52,10 +50,12 @@ namespace AlexGolikov.UrlShortener.Services
             }
             catch (ArgumentOutOfRangeException e)
             {
+                Logger.LogError(e, e.Message);
                 return new ServiceResult<ShortUrlDto>(e);
             }
             catch (Exception e)
             {
+                Logger.LogError(e, e.Message);
                 return new ServiceResult<ShortUrlDto>(new InternalServerException());
             }
 
@@ -79,12 +79,25 @@ namespace AlexGolikov.UrlShortener.Services
             }
             catch (NotFoundException e)
             {
+                Logger.LogError(e, e.Message);
                 return new ServiceResult<OriginalUrlDto>(e);
             }
             catch (Exception e)
             {
+                Logger.LogError(e, e.Message);
                 return new ServiceResult<OriginalUrlDto>(new InternalServerException());
             }
+        }
+
+        private string TakeRandomSymbols(string input, int amount)
+        {
+            var sb = new StringBuilder();
+            for (var i = 0; i < amount; i++)
+            {
+                sb.Append(input[input.Length.Next()]);
+            }
+
+            return sb.ToString();
         }
     }
 }

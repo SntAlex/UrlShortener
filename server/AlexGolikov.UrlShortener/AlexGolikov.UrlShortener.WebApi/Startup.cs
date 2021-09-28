@@ -1,5 +1,3 @@
-using System;
-using System.Net;
 using AlexGolikov.UrlShortener.Data.DB;
 using AlexGolikov.UrlShortener.Data.Repositories;
 using AlexGolikov.UrlShortener.Domain.Contracts.Repositories;
@@ -16,7 +14,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using NLog;
+using System;
+using System.Net;
 
 namespace AlexGolikov.UrlShortener.WebApi
 {
@@ -32,10 +32,10 @@ namespace AlexGolikov.UrlShortener.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
+
             services.AddDbContext<UrlShortenerContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUrlShortenerService, UrlShortenerService>();
 
@@ -64,11 +64,12 @@ namespace AlexGolikov.UrlShortener.WebApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                //app.UseDeveloperExceptionPage();
-            }
-
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
             app.UseExceptionHandler(a => a.Run(async context =>
             {
                 var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
@@ -84,12 +85,15 @@ namespace AlexGolikov.UrlShortener.WebApi
                     var result = new ErrorDetails(ex.Message, ex.HttpStatusCode);
                     await context.Response.WriteAsJsonAsync(result);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    var logger = LogManager.GetCurrentClassLogger();
+                    logger.Error(ex, ex.Message);
                     var result = new ErrorDetails(exception.Message, (int)HttpStatusCode.InternalServerError);
                     await context.Response.WriteAsJsonAsync(result);
                 }
             }));
+            //}
 
             app.UseOpenApi();
 
