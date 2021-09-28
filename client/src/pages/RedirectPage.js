@@ -4,12 +4,24 @@ import axios from "axios";
 const RedirectPage = () => {
 
     const [responseData, setResponseData] = useState();
+    const [error, setError] = useState('')
 
     async function getOriginalLink(){
-        const url = "https://localhost:8001/api/v1/UrlShortener" + window.location.pathname;
-        const response = await axios.get(url);
-        setResponseData(response.data);
+        try {
+            const url = "https://localhost:8001/api/v1/UrlShortener" + window.location.pathname;
+            const response = await axios.get(url);
+
+            if(response.data.error !== undefined){
+                setError(response.data.error);
+            } else {
+                setResponseData(response.data);
+                setError('');
+            }
+        } catch (error){
+            setError(error.message);
+        }
     }
+
 
     useEffect(() =>{
         getOriginalLink();
@@ -20,10 +32,11 @@ const RedirectPage = () => {
             window.location.href = responseData
         }
     }
+
     return (
-        <div>
-            {redirect()}
-        </div>
+        <h1>
+            {error === '' ? redirect() : error}
+        </h1>
     );
 };
 
