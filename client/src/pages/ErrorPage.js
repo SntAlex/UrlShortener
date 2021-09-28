@@ -1,9 +1,10 @@
 import React from 'react';
 
-const ErrorPage = () => {
+const ErrorPage = ({error}) => {
     return (
         <h1>
            Error!
+            {error}
         </h1>
     );
 };

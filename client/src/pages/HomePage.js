@@ -1,7 +1,7 @@
 import React from 'react';
 import UrlShortenerForm from "../components/UrlShortenerForm/UrlShortenerForm";
 
-const Home = () => {
+const HomePage = () => {
     return (
         <div>
             <UrlShortenerForm />
@@ -9,4 +9,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default HomePage;

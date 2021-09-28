@@ -7,19 +7,23 @@ const RedirectPage = () => {
 
     async function getOriginalLink(){
         const url = "https://localhost:8001/api/v1/UrlShortener" + window.location.pathname;
-        console.log(url);
         const response = await axios.get(url);
         setResponseData(response.data);
-        console.log(response.data)
     }
 
     useEffect(() =>{
         getOriginalLink();
 
     }, [window.location.pathname])
+
+    function redirect(){
+        if(responseData !== undefined){
+            window.location.href = responseData
+        }
+    }
     return (
         <div>
-            {window.location.href = responseData}
+            {redirect()}
         </div>
     );
 };
