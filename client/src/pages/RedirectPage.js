@@ -34,9 +34,9 @@ const RedirectPage = () => {
     }
 
     return (
-        <h1>
+        <h4>
             {error === '' ? redirect() : error}
-        </h1>
+        </h4>
     );
 };
 

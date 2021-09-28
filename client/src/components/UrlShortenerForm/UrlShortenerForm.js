@@ -18,7 +18,7 @@ const UrlShortenerForm = () => {
             if(error.response.data.errors !== undefined) {
                 setError(JSON.stringify(error.response.data.errors, null, 4));
             } else if(error.response.data.message !== undefined && error.response.data.statusCode !== undefined){
-                setError(error.response.data.message + '\n' + 'Status code: ' + error.response.data.statusCode);
+                setError(error.response.data.message + 'Status code: ' + error.response.data.statusCode);
             } else {
                 setError(error.message);
             }
@@ -33,7 +33,7 @@ const UrlShortenerForm = () => {
             <Link to={shortUrl}>
                 {shortUrl === '' ? '' : window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/' + shortUrl}
             </Link>
-            <h1>{error !== '' ? error : ''}</h1>
+            <h4>{error !== '' ? error : ''}</h4>
         </form>
     );
 };
