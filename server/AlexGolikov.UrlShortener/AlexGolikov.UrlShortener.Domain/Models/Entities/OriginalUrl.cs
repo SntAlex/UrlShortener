@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using AlexGolikov.UrlShortener.Domain.Models.Entities.Base;
+﻿using AlexGolikov.UrlShortener.Domain.Models.Entities.Base;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace AlexGolikov.UrlShortener.Domain.Models.Entities
 {

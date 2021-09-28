@@ -64,7 +64,7 @@ namespace AlexGolikov.UrlShortener.WebApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseExceptionHandler(a => a.Run(async context => 
+            app.UseExceptionHandler(a => a.Run(async context =>
             {
                 var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
                 var exception = exceptionHandlerPathFeature.Error;
@@ -85,7 +85,7 @@ namespace AlexGolikov.UrlShortener.WebApi
                     await context.Response.WriteAsJsonAsync(result);
                 }
             }));
-            
+
             app.UseOpenApi();
 
             app.UseSwaggerUi3();
@@ -95,7 +95,7 @@ namespace AlexGolikov.UrlShortener.WebApi
             app.UseRouting();
 
             app.UseCors(
-                options => 
+                options =>
                     options.WithOrigins("http://localhost:3000")
                     .AllowAnyMethod()
                     .AllowAnyHeader()

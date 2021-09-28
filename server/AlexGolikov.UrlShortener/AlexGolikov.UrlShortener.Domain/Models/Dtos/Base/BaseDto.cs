@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AlexGolikov.UrlShortener.Domain.Models.Dtos.Base
+﻿namespace AlexGolikov.UrlShortener.Domain.Models.Dtos.Base
 {
     /// <summary>
     /// Base Dto model

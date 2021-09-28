@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using AlexGolikov.UrlShortener.Domain.Contracts.Services;
+﻿using AlexGolikov.UrlShortener.Domain.Contracts.Services;
 using AlexGolikov.UrlShortener.Domain.Models.Dtos;
 using AlexGolikov.UrlShortener.WebApi.Controllers.Base;
 using AlexGolikov.UrlShortener.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace AlexGolikov.UrlShortener.WebApi.Controllers
 {

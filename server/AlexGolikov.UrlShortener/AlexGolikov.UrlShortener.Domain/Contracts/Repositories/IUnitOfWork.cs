@@ -1,6 +1,6 @@
-﻿using System;
-using AlexGolikov.UrlShortener.Domain.Contracts.Repositories.Base;
+﻿using AlexGolikov.UrlShortener.Domain.Contracts.Repositories.Base;
 using AlexGolikov.UrlShortener.Domain.Models.Entities.Base;
+using System;
 
 namespace AlexGolikov.UrlShortener.Domain.Contracts.Repositories
 {

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using AlexGolikov.UrlShortener.Domain.Models.Dtos.Base;
+using System;
 using System.Collections.Generic;
-using AlexGolikov.UrlShortener.Domain.Models.Dtos.Base;
 
 namespace AlexGolikov.UrlShortener.Domain.Contracts.Services.Result
 {
@@ -13,7 +13,7 @@ namespace AlexGolikov.UrlShortener.Domain.Contracts.Services.Result
         /// If service result successful
         /// </summary>
         bool IsSuccessful { get; }
-        
+
         /// <summary>
         /// Exception, if error
         /// </summary>

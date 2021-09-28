@@ -1,17 +1,17 @@
 ﻿using AlexGolikov.UrlShortener.Domain.Contracts.Repositories;
 using AlexGolikov.UrlShortener.Domain.Contracts.Services;
 using AlexGolikov.UrlShortener.Domain.Contracts.Services.Result;
+using AlexGolikov.UrlShortener.Domain.Models.Dtos;
 using AlexGolikov.UrlShortener.Domain.Models.Entities;
 using AlexGolikov.UrlShortener.Services.Base;
+using AlexGolikov.UrlShortener.Services.Exceptions;
 using AlexGolikov.UrlShortener.Services.Helpers;
+using AlexGolikov.UrlShortener.Services.Result;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Text;
-using AlexGolikov.UrlShortener.Domain.Models.Dtos;
-using AlexGolikov.UrlShortener.Services.Exceptions;
-using AlexGolikov.UrlShortener.Services.Result;
-using Microsoft.Extensions.Logging;
 
 namespace AlexGolikov.UrlShortener.Services
 {
@@ -40,7 +40,7 @@ namespace AlexGolikov.UrlShortener.Services
 
                 var md5 = originalUrl.Url.ToMd5();
                 var base64Url = Convert.ToBase64String(md5);
-                
+
                 var shortUrlEntity = new ShortUrl
                 {
                     OriginalUrlId = originalUrlEntity.Id,
