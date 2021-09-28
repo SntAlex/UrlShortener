@@ -34,7 +34,7 @@ namespace AlexGolikov.UrlShortener.WebApi
             services.AddControllers();
 
             services.AddDbContext<UrlShortenerContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUrlShortenerService, UrlShortenerService>();

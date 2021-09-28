@@ -3,7 +3,6 @@ using System;
 using AlexGolikov.UrlShortener.Data.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AlexGolikov.UrlShortener.Data.DB.Migrations
@@ -15,28 +14,25 @@ namespace AlexGolikov.UrlShortener.Data.DB.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.10")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.10");
 
             modelBuilder.Entity("AlexGolikov.UrlShortener.Domain.Models.Entities.OriginalUrl", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DateTime");
 
                     b.Property<string>("Url")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Url")
-                        .IsUnique()
-                        .HasFilter("[Url] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("OriginalUrls");
                 });
@@ -45,25 +41,24 @@ namespace AlexGolikov.UrlShortener.Data.DB.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DateTime");
 
-                    b.Property<Guid?>("OriginalUrlId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<Guid>("OriginalUrlId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Url")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OriginalUrlId");
 
                     b.HasIndex("Url")
-                        .IsUnique()
-                        .HasFilter("[Url] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("ShortUrls");
                 });
@@ -72,7 +67,9 @@ namespace AlexGolikov.UrlShortener.Data.DB.Migrations
                 {
                     b.HasOne("AlexGolikov.UrlShortener.Domain.Models.Entities.OriginalUrl", "OriginalUrl")
                         .WithMany()
-                        .HasForeignKey("OriginalUrlId");
+                        .HasForeignKey("OriginalUrlId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("OriginalUrl");
                 });

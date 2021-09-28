@@ -11,8 +11,8 @@ namespace AlexGolikov.UrlShortener.Data.DB.Migrations
                 name: "OriginalUrls",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Url = table.Column<string>(type: "TEXT", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "DateTime", nullable: false)
                 },
                 constraints: table =>
@@ -24,9 +24,9 @@ namespace AlexGolikov.UrlShortener.Data.DB.Migrations
                 name: "ShortUrls",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    OriginalUrlId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Url = table.Column<string>(type: "TEXT", nullable: true),
+                    OriginalUrlId = table.Column<Guid>(type: "TEXT", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "DateTime", nullable: false)
                 },
                 constraints: table =>
@@ -37,15 +37,14 @@ namespace AlexGolikov.UrlShortener.Data.DB.Migrations
                         column: x => x.OriginalUrlId,
                         principalTable: "OriginalUrls",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OriginalUrls_Url",
                 table: "OriginalUrls",
                 column: "Url",
-                unique: true,
-                filter: "[Url] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShortUrls_OriginalUrlId",
@@ -56,8 +55,7 @@ namespace AlexGolikov.UrlShortener.Data.DB.Migrations
                 name: "IX_ShortUrls_Url",
                 table: "ShortUrls",
                 column: "Url",
-                unique: true,
-                filter: "[Url] IS NOT NULL");
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
