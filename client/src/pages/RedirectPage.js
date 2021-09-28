@@ -10,15 +10,15 @@ const RedirectPage = () => {
         try {
             const url = "https://localhost:8001/api/v1/UrlShortener" + window.location.pathname;
             const response = await axios.get(url);
+            setResponseData(response.data);
+            setError('');
 
-            if(response.data.error !== undefined){
-                setError(response.data.error);
-            } else {
-                setResponseData(response.data);
-                setError('');
-            }
         } catch (error){
-            setError(error.message);
+            if(error.response.data.message !== undefined && error.response.data.statusCode !== undefined){
+                setError(error.response.data.message + '\n' + 'Status code: ' + error.response.data.statusCode);
+            } else {
+                setError(error.message);
+            }
         }
     }
 

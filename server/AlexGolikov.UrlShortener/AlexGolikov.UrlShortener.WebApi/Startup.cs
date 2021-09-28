@@ -74,8 +74,6 @@ namespace AlexGolikov.UrlShortener.WebApi
                 }
                 catch (BaseException ex)
                 {
-                    context.Response.ContentType = "application/json";
-                    context.Response.StatusCode = ex.HttpStatusCode;
                     var result = new ErrorDetails(ex.Message, ex.HttpStatusCode);
                     await context.Response.WriteAsJsonAsync(result);
                 }
