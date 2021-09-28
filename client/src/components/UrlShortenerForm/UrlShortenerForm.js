@@ -18,7 +18,7 @@ const UrlShortenerForm = () => {
             <input type="submit" value="Get short Url!"  onClick={handleClick}/>
             <br/>
             <Link to={shortUrl}>
-                {window.location.hostname + '/' + shortUrl}
+                {shortUrl === '' ? '' : window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/' + shortUrl}
             </Link>
         </form>
     );
