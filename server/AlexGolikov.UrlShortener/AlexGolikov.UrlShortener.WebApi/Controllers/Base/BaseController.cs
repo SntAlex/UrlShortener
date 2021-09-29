@@ -1,4 +1,5 @@
 ﻿using AlexGolikov.UrlShortener.Domain.Contracts.Services.Result;
+using AlexGolikov.UrlShortener.WebApi.Filters;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace AlexGolikov.UrlShortener.WebApi.Controllers.Base
     /// </summary>
     [ApiController]
     [Route("api/v1/[controller]")]
+    [ValidateModel]
     public abstract class BaseController : ControllerBase
     {
         protected readonly IMapper Mapper;

@@ -5,12 +5,14 @@ using AlexGolikov.UrlShortener.Domain.Contracts.Services;
 using AlexGolikov.UrlShortener.Services;
 using AlexGolikov.UrlShortener.Services.Exceptions.Base;
 using AlexGolikov.UrlShortener.WebApi.Configuration;
+using AlexGolikov.UrlShortener.WebApi.Filters;
 using AlexGolikov.UrlShortener.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +33,10 @@ namespace AlexGolikov.UrlShortener.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(typeof(ValidateModelAttribute));
+            });
 
             services.AddDbContext<UrlShortenerContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
@@ -59,6 +64,11 @@ namespace AlexGolikov.UrlShortener.WebApi
                         Email = "alexgolikov5@mail.ru"
                     };
                 };
+            });
+
+            services.Configure<ApiBehaviorOptions>(opt =>
+            {
+                opt.SuppressModelStateInvalidFilter = true;
             });
         }
 

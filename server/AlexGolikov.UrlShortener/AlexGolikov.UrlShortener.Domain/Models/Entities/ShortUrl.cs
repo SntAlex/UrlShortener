@@ -9,8 +9,10 @@ namespace AlexGolikov.UrlShortener.Domain.Models.Entities
     public class ShortUrl : BaseEntity
     {
         [Url]
+        [Required]
         public string Url { get; set; }
 
+        [Required]
         public Guid OriginalUrlId { get; set; }
 
         public OriginalUrl OriginalUrl { get; set; }

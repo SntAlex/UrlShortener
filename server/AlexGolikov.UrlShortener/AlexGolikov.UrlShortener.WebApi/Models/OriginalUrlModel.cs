@@ -11,6 +11,7 @@ namespace AlexGolikov.UrlShortener.WebApi.Models
         /// Original url
         /// </summary>
         [Url]
+        [Required]
         public string Url { get; set; }
     }
 }
