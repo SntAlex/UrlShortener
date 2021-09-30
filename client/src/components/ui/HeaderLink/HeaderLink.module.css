@@ -1,0 +1,12 @@
+.headerLink{
+    transition: 0.3s;
+}
+
+.headerContent{
+    color: white;
+}
+
+.headerLink:hover{
+    font-size: 20px;
+}
+

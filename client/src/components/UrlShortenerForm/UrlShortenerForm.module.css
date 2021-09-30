@@ -1,0 +1,14 @@
+.urlShortenerForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 70px;
+}
+
+.shortUrlButton{
+    width: 204px;
+}
+
+.originalUrlInput {
+    width: 200px;
+}

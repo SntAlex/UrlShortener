@@ -1,0 +1,9 @@
+.footer{
+    display: flex;
+    justify-content: end;
+    background: salmon;
+}
+
+.footerContent{
+    color: white;
+}

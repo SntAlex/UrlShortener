@@ -1,42 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import axios from "axios";
+import React, {useState} from 'react';
+import ErrorMessage from "../components/ui/ErrorMessage/ErrorMessage";
+import OriginalUrlRedirect from "../components/OriginalUrlRedirect/OriginalUrlRedirect";
+import Loader from "../components/ui/Loader/Loader";
 
 const RedirectPage = () => {
 
-    const [responseData, setResponseData] = useState();
     const [error, setError] = useState('')
 
-    async function getOriginalLink(){
-        try {
-            const url = "https://localhost:8001/api/v1/UrlShortener/shortUrl?ShortUrlPath=" + (window.location.pathname).replace('/', '');
-            const response = await axios.get(url);
-            setResponseData(response.data);
-            setError('');
-
-        } catch (error){
-            try {
-                setError(error.response.data.message + ' Status code: ' + error.response.data.statusCode);
-            } catch (error2) {
-                setError(error.message);
-            }
-        }
-    }
-
-
-    useEffect(() =>{
-        getOriginalLink();
-    }, [window.location.pathname])
-
-    function redirect(){
-        if(responseData !== undefined){
-            window.location.href = responseData
-        }
-    }
+    const tryRedirect = (error) =>{
+        setError(error);
+    };
 
     return (
-        <h4>
-            {error === '' ? redirect() : error}
-        </h4>
+        <div className='page'>
+            <OriginalUrlRedirect errorState={tryRedirect}/>
+            {error === '' ? <Loader/> : <ErrorMessage error={error}/>}
+        </div>
     );
 };
 
