@@ -28,7 +28,7 @@ namespace AlexGolikov.UrlShortener.WebApi.Controllers
         /// <param name="originalUrl">Original url model</param>
         /// <returns>Short url</returns>
         [HttpPost]
-        public ActionResult<string> CreateShortUrl(OriginalUrlRequestModel originalUrl)
+        public ActionResult<string> CreateShortUrl(OriginalUrlModel originalUrl)
         {
             var result = _urlShortenerService.CreateShortUrl(Mapper.Map<OriginalUrlDto>(originalUrl));
             ThrowServiceError(result);
