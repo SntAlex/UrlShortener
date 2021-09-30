@@ -11,7 +11,7 @@ namespace AlexGolikov.UrlShortener.WebApi.Configuration
         {
             CreateMap<OriginalUrl, OriginalUrlDto>()
                 .ReverseMap();
-            CreateMap<OriginalUrlDto, OriginalUrlModel>()
+            CreateMap<OriginalUrlDto, OriginalUrlRequestModel>()
                 .ReverseMap();
         }
     }
