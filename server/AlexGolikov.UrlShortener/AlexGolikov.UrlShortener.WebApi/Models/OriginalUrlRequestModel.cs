@@ -3,9 +3,9 @@
 namespace AlexGolikov.UrlShortener.WebApi.Models
 {
     /// <summary>
-    /// Original url model
+    /// Original url request model
     /// </summary>
-    public class OriginalUrlModel
+    public class OriginalUrlRequestModel
     {
         /// <summary>
         /// Original url
