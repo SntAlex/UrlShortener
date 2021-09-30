@@ -22,9 +22,9 @@ namespace AlexGolikov.UrlShortener.WebApi.Configuration
         {
             CreateMap<ShortUrl, ShortUrlDto>()
                 .ReverseMap();
-            CreateMap<string, ShortUrlDto>()
-                .ForMember(dest => dest.Url,
-                    opt => opt.MapFrom(src => src));
+            CreateMap<ShortUrlRequestModel, ShortUrlDto>()
+                .ForMember(dest => dest.Url, 
+                    opt => opt.MapFrom(src => src.ShortUrlPath));
         }
     }
 }

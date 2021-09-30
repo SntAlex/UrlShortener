@@ -40,8 +40,8 @@ namespace AlexGolikov.UrlShortener.WebApi.Controllers
         /// </summary>
         /// <param name="shortUrl">Short url</param>
         /// <returns>Original url</returns>
-        [HttpGet("{shortUrl}")]
-        public ActionResult<string> GetShortUrl(string shortUrl)
+        [HttpGet("shortUrl")]
+        public ActionResult<string> GetShortUrl([FromQuery] ShortUrlRequestModel shortUrl)
         {
             var result = _urlShortenerService.GetOriginalUrl(Mapper.Map<ShortUrlDto>(shortUrl));
             ThrowServiceError(result);

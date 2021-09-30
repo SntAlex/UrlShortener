@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexGolikov.UrlShortener.Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexGolikov.UrlShortener.Domain", "AlexGolikov.UrlShortener.Domain\AlexGolikov.UrlShortener.Domain.csproj", "{B10AE449-D282-40F6-96A5-AEA7C4436303}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexGolikov.UrlShortener.WebApi", "AlexGolikov.UrlShortener.WebApi\AlexGolikov.UrlShortener.WebApi.csproj", "{0C9310B5-0DA8-4094-BC6D-08851E85BFF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexGolikov.UrlShortener.WebApi", "AlexGolikov.UrlShortener.WebApi\AlexGolikov.UrlShortener.WebApi.csproj", "{0C9310B5-0DA8-4094-BC6D-08851E85BFF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexGolikov.UrlShortener.Services", "AlexGolikov.UrlShortener.Services\AlexGolikov.UrlShortener.Services.csproj", "{317DD7F8-B5B7-48A7-8D5E-AE5D0170980A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexGolikov.UrlShortener.Services", "AlexGolikov.UrlShortener.Services\AlexGolikov.UrlShortener.Services.csproj", "{317DD7F8-B5B7-48A7-8D5E-AE5D0170980A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A5B8A872-60A8-4736-AEE6-B945173004DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

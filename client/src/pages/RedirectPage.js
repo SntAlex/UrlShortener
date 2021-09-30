@@ -8,7 +8,7 @@ const RedirectPage = () => {
 
     async function getOriginalLink(){
         try {
-            const url = "https://localhost:8001/api/v1/UrlShortener" + window.location.pathname;
+            const url = "https://localhost:8001/api/v1/UrlShortener/shortUrl?ShortUrlPath=" + (window.location.pathname).replace('/', '');
             const response = await axios.get(url);
             setResponseData(response.data);
             setError('');
