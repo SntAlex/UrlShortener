@@ -3,14 +3,16 @@ using System;
 using AlexGolikov.UrlShortener.Data.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AlexGolikov.UrlShortener.Data.DB.Migrations
 {
     [DbContext(typeof(UrlShortenerContext))]
-    partial class UrlShortenerContextModelSnapshot : ModelSnapshot
+    [Migration("20211001115108_StringLengthShortUrlLimitation")]
+    partial class StringLengthShortUrlLimitation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +29,6 @@ namespace AlexGolikov.UrlShortener.Data.DB.Migrations
                         .HasColumnType("DateTime");
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

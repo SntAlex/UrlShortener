@@ -10,7 +10,6 @@ using AlexGolikov.UrlShortener.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -72,7 +71,7 @@ namespace AlexGolikov.UrlShortener.WebApi
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseExceptionHandler(a => a.Run(async context =>
             {

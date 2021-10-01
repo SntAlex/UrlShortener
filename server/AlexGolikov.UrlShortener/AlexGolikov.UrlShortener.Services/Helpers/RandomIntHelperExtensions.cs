@@ -18,7 +18,7 @@ namespace AlexGolikov.UrlShortener.Services.Helpers
         {
             if (minValue > maxValue)
             {
-                throw new ArgumentOutOfRangeException("minValue");
+                throw new ArgumentOutOfRangeException(nameof(minValue));
             }
 
             if (minValue == maxValue)

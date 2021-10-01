@@ -8,6 +8,7 @@ namespace AlexGolikov.UrlShortener.Domain.Models.Entities
     public class OriginalUrl : BaseEntity
     {
         [Url]
+        [Required]
         public string Url { get; set; }
     }
 }

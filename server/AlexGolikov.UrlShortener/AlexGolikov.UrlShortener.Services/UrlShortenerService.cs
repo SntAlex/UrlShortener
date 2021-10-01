@@ -11,7 +11,6 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
-using System.Text;
 
 namespace AlexGolikov.UrlShortener.Services
 {
@@ -44,7 +43,7 @@ namespace AlexGolikov.UrlShortener.Services
                 var shortUrlEntity = new ShortUrl
                 {
                     OriginalUrlId = originalUrlEntity.Id,
-                    Url = TakeRandomSymbols(base64Url, 6)
+                    Url = base64Url.TakeRandomSymbols(6)
                 };
 
                 UnitOfWork.GetRepository<ShortUrl>().Add(shortUrlEntity);
@@ -90,22 +89,6 @@ namespace AlexGolikov.UrlShortener.Services
                 Logger.LogError(e, e.Message);
                 return new ServiceResult<OriginalUrlDto>(new InternalServerException());
             }
-        }
-
-        /// <summary>
-        /// Takes random amount of symbols in whole string
-        /// </summary>
-        /// <param name="input">String input</param>
-        /// <param name="amount">Amount of symbols</param>
-        /// <returns>String result</returns>
-        private string TakeRandomSymbols(string input, int amount)
-        {
-            var sb = new StringBuilder();
-            for (var i = 0; i < amount; i++)
-            {
-                sb.Append(input[input.Length.Next()]);
-            }
-            return sb.ToString();
         }
     }
 }
