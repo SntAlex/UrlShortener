@@ -1,32 +1,20 @@
 import React, {useState} from 'react';
 import classes from "./UrlShortenerForm.module.css";
-import ShortUrlLinker from "../ShortUrlLinker/ShortUrlLinker";
-import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
-import Loader from "../UI/Loader/Loader";
-import UrlMinificationService from "../../API/UrlMinificationService";
-import {useFetching} from "../../hooks/useFetching";
+import Input from "../UI/Input/Input";
 
-const UrlShortenerForm = () => {
+const UrlShortenerForm = ({setUrl, createShortUrl}) => {
     const [input, setInput] = useState('');
-    const [shortUrl, setShortUrl] = useState('');
-    const [createShortUrl, isLoading, error] = useFetching(async () =>{
-        const response = await UrlMinificationService.createShortUrl(input);
-        setShortUrl(response.data);
-    })
 
     async function handleClick(event) {
         event.preventDefault();
-        setShortUrl('');
-        await createShortUrl();
+        setUrl('')
+        await createShortUrl(input);
     }
 
-    return (isLoading ?
-            <Loader/> :
+    return (
             <form className={classes.urlShortenerForm}>
-                <input className={classes.originalUrlInput} name="Original url" value={input} onChange={event => setInput(event.target.value)}/>
-                <input className={classes.shortUrlButton} type="submit" value="Get short Url!" onClick={handleClick}/>
-                <ShortUrlLinker urlPath={shortUrl} />
-                <ErrorMessage error={error}/>
+                <Input name="Original url" value={input} onChange={event => setInput(event.target.value)}/>
+                <Input type="submit" value="Get short Url!" onClick={handleClick}/>
             </form>
     );
 };

@@ -15,7 +15,7 @@ namespace AlexGolikov.UrlShortener.WebApi.Filters
                 return;
             }
 
-            var messages = string.Join("; ", context.ModelState.Values
+            var messages = string.Join("", context.ModelState.Values
                 .SelectMany(x => x.Errors)
                 .Select(x => x.ErrorMessage));
             context.Result = new BadRequestObjectResult(new ErrorDetails(messages, StatusCodes.Status400BadRequest));

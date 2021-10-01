@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import {routes} from "../../routes/routes";
 
 const AppRouter = () => {
@@ -12,6 +12,7 @@ const AppRouter = () => {
                     path={route.path}
                 />
             )}
+            <Redirect to='/error'/>
         </Switch>
     );
 };

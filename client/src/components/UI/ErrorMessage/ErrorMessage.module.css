@@ -1,0 +1,7 @@
+.errorMessage{
+    color: mintcream;
+    transition: 0.2s;
+}
+.errorMessage:hover{
+    font-size: 30px;
+}

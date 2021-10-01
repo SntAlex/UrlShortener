@@ -1,0 +1,10 @@
+.shortUrl{
+    outline: none;
+    text-decoration: none;
+    color: mintcream;
+    transition: 0.2s;
+}
+
+.shortUrl:hover{
+    font-size: 30px;
+}
