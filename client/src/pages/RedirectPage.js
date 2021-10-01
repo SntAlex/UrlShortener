@@ -1,20 +1,32 @@
-import React, {useState} from 'react';
-import ErrorMessage from "../components/ui/ErrorMessage/ErrorMessage";
-import OriginalUrlRedirect from "../components/OriginalUrlRedirect/OriginalUrlRedirect";
-import Loader from "../components/ui/Loader/Loader";
+import React, {useEffect, useState} from 'react';
+import ErrorMessage from "../components/UI/ErrorMessage/ErrorMessage";
+import Loader from "../components/UI/Loader/Loader";
+import {useFetching} from "../hooks/useFetching";
+import UrlMinificationService from "../API/UrlMinificationService";
 
 const RedirectPage = () => {
+    const [originalUrl, setOriginalUrl] = useState(undefined);
+    const [getOriginalUrl, isLoading, error] = useFetching(async () => {
+        const response = await UrlMinificationService.getOriginalUrl();
+        setOriginalUrl(response.data);
+    })
 
-    const [error, setError] = useState('')
+    useEffect(() =>{
+        getOriginalUrl().then(() => redirect());
+    }, [originalUrl])
 
-    const tryRedirect = (error) =>{
-        setError(error);
-    };
+    function redirect(){
+        if(originalUrl !== undefined){
+            window.location.href = originalUrl
+        }
+    }
 
     return (
         <div className='page'>
-            <OriginalUrlRedirect errorState={tryRedirect}/>
-            {error === '' ? <Loader/> : <ErrorMessage error={error}/>}
+            {isLoading || error === '' ?
+                <Loader/> :
+                <ErrorMessage error={error}/>
+            }
         </div>
     );
 };

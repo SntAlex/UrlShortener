@@ -1,37 +1,26 @@
 import React, {useState} from 'react';
-import axios from "axios";
 import classes from "./UrlShortenerForm.module.css";
 import ShortUrlLinker from "../ShortUrlLinker/ShortUrlLinker";
-import ErrorMessage from "../ui/ErrorMessage/ErrorMessage";
-import Loader from "../ui/Loader/Loader";
+import ErrorMessage from "../UI/ErrorMessage/ErrorMessage";
+import Loader from "../UI/Loader/Loader";
+import UrlMinificationService from "../../API/UrlMinificationService";
+import {useFetching} from "../../hooks/useFetching";
 
-const UrlShortenerForm = ({operation}) => {
+const UrlShortenerForm = () => {
     const [input, setInput] = useState('');
     const [shortUrl, setShortUrl] = useState('');
-    const [error, setError] = useState('');
-    const [isOperation, setIsOperation] = useState(false);
+    const [createShortUrl, isLoading, error] = useFetching(async () =>{
+        const response = await UrlMinificationService.createShortUrl(input);
+        setShortUrl(response.data);
+    })
 
     async function handleClick(event) {
         event.preventDefault();
-        try {
-            setIsOperation(true);
-            const response = await axios.post('https://localhost:8001/api/v1/UrlShortener', {url: input})
-            setShortUrl(response.data);
-            setError('');
-            setIsOperation(false);
-        } catch (error){
-            setIsOperation(false);
-            try {
-                if(error.response.data.message !== undefined && error.response.data.statusCode !== undefined){
-                    setError(error.response.data.message + ' Status code: ' + error.response.data.statusCode);
-                }
-            } catch (error2){
-                setError(error.message);
-            }
-        }
+        setShortUrl('');
+        await createShortUrl();
     }
 
-    return (isOperation ?
+    return (isLoading ?
             <Loader/> :
             <form className={classes.urlShortenerForm}>
                 <input className={classes.originalUrlInput} name="Original url" value={input} onChange={event => setInput(event.target.value)}/>

@@ -1,8 +1,6 @@
-import classes from "./ErrorMessage.module.css";
-
 const ErrorMessage = ({error, ...props}) => {
     return (
-        <h4 className={classes.errorMessage} {...props}>
+        <h4 {...props}>
             {error}
         </h4>
     );

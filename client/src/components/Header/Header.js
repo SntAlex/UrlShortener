@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from "./Header.module.css";
-import HeaderLink from "../ui/HeaderLink/HeaderLink";
+import HeaderLink from "../UI/HeaderLink/HeaderLink";
 
 const Header = () => {
     return (
