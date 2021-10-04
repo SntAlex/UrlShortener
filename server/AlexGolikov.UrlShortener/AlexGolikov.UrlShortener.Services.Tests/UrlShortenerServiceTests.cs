@@ -1,3 +1,4 @@
+using AlexGolikov.UrlShortener.Data.Repositories.Tests.Infrastructure;
 using AlexGolikov.UrlShortener.Domain.Contracts.Services;
 using AlexGolikov.UrlShortener.Domain.Models.Dtos;
 using AlexGolikov.UrlShortener.Services.Exceptions;
@@ -9,11 +10,18 @@ namespace AlexGolikov.UrlShortener.Services.Tests
 {
     public class UrlShortenerServiceTests
     {
-        private readonly IUrlShortenerService _urlShortenerService;
+        private IUrlShortenerService _urlShortenerService;
 
-        public UrlShortenerServiceTests()
+        [SetUp]
+        public void SetUp()
         {
-            _urlShortenerService = new UrlShortenerServiceFixture().Create();
+            _urlShortenerService = UrlShortenerServiceFixture.Create();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            DbContextDatabaseCleaner.ClearDatabase();
         }
 
         [Test]
@@ -72,7 +80,7 @@ namespace AlexGolikov.UrlShortener.Services.Tests
             var result = _urlShortenerService.CreateShortUrl(originalUrl).Exception;
 
             //Assert
-            Assert.IsInstanceOf<InternalServerException>(result);
+            Assert.IsInstanceOf<ValidationException>(result);
         }
 
         [Test]
@@ -120,7 +128,7 @@ namespace AlexGolikov.UrlShortener.Services.Tests
             var result = _urlShortenerService.GetOriginalUrl(shortUrl).Exception;
 
             //Assert
-            Assert.IsInstanceOf<NotFoundException>(result);
+            Assert.IsInstanceOf<InternalServerException>(result);
         }
 
         [Test]

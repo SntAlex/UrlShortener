@@ -6,7 +6,7 @@ namespace AlexGolikov.UrlShortener.Data.Repositories.Tests.Infrastructure.Helper
 {
     public class UrlShortenerContextHelper
     {
-        public UrlShortenerContext Context { get; set; }
+        public UrlShortenerContext Context { get; }
 
         public UrlShortenerContextHelper()
         {
@@ -16,6 +16,7 @@ namespace AlexGolikov.UrlShortener.Data.Repositories.Tests.Infrastructure.Helper
 
             var options = builder.Options;
             Context = new UrlShortenerContext(options);
+            DbContextDatabaseCleaner.Context = Context;
             Context.AddRange(EntityHelper.GetManyOriginalUrls());
             Context.AddRange(EntityHelper.GetManyShortUrls());
             Context.SaveChanges();

@@ -1,25 +1,33 @@
-using System;
-using System.Linq;
+using AlexGolikov.UrlShortener.Data.Repositories.Tests.Infrastructure;
 using AlexGolikov.UrlShortener.Data.Repositories.Tests.Infrastructure.Fixtures;
 using AlexGolikov.UrlShortener.Data.Repositories.Tests.Infrastructure.Helpers;
 using AlexGolikov.UrlShortener.Domain.Contracts.Repositories;
 using AlexGolikov.UrlShortener.Domain.Models.Entities;
 using AlexGolikov.UrlShortener.Domain.Models.Entities.Base;
 using NUnit.Framework;
+using System;
+using System.Linq;
 
 namespace AlexGolikov.UrlShortener.Data.Repositories.Tests
 {
     [TestFixture]
     public class UnitOfWorkTests
     {
-        private readonly IUnitOfWork _uow;
+        private IUnitOfWork _uow;
 
-        public UnitOfWorkTests()
+        [SetUp]
+        public void Setup()
         {
-            _uow = new UnitOfWorkFixture().Create();
+            _uow = UnitOfWorkFixture.Create();
         }
 
-        [Test] 
+        [TearDown]
+        public void TearDown()
+        {
+            DbContextDatabaseCleaner.ClearDatabase();
+        }
+
+        [Test]
         public void UnitOfWork_CreatedInstance_ShouldNotBeNull()
         {
             //Assert
@@ -41,7 +49,7 @@ namespace AlexGolikov.UrlShortener.Data.Repositories.Tests
         {
             //Act
             var result = _uow.GetRepository<ShortUrl>();
-            
+
             //Assert
             Assert.NotNull(result);
         }
@@ -51,7 +59,7 @@ namespace AlexGolikov.UrlShortener.Data.Repositories.Tests
         {
             //Act
             var result = _uow.GetRepository<BaseEntity>();
-            
+
             //Assert
             Assert.Null(result);
         }
@@ -72,7 +80,7 @@ namespace AlexGolikov.UrlShortener.Data.Repositories.Tests
             _uow.GetRepository<OriginalUrl>().Add(newOriginalUrlEntity);
             _uow.Commit();
             var entities = _uow.GetRepository<OriginalUrl>().Get();
-            
+
             //Assert
             Assert.IsTrue(entities.Contains(newOriginalUrlEntity));
         }

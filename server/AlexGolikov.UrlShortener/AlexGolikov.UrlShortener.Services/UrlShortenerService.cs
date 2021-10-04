@@ -20,7 +20,7 @@ namespace AlexGolikov.UrlShortener.Services
     public class UrlShortenerService : BaseService<UrlShortenerService>, IUrlShortenerService
     {
         #region constructor
-        public UrlShortenerService(IMapper mapper, IUnitOfWork unitOfWork, ILogger<UrlShortenerService> logger) 
+        public UrlShortenerService(IMapper mapper, IUnitOfWork unitOfWork, ILogger<UrlShortenerService> logger)
             : base(mapper, unitOfWork, logger) { }
         #endregion
 
@@ -28,12 +28,12 @@ namespace AlexGolikov.UrlShortener.Services
         {
             try
             {
-                var isUrl = Uri.TryCreate(originalUrl.Url, UriKind.Absolute, out var uriResult)
-                             && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
-                if (!isUrl)
+                if (originalUrl?.Url == null)
                 {
-                    throw new Exception("It is not url");
+                    throw new NullReferenceException("OriginalUrlDto is null");
                 }
+
+                CheckValidation(originalUrl.Url);
 
                 var originalUrlEntity = UnitOfWork.GetRepository<OriginalUrl>()
                     .Get(url => url.Url == originalUrl.Url)
@@ -58,6 +58,11 @@ namespace AlexGolikov.UrlShortener.Services
                 UnitOfWork.Commit();
                 return new ServiceResult<ShortUrlDto>(Mapper.Map<ShortUrlDto>(shortUrlEntity));
             }
+            catch (ValidationException e)
+            {
+                Logger.LogError(e, e.Message);
+                return new ServiceResult<ShortUrlDto>(e);
+            }
             catch (ArgumentOutOfRangeException e)
             {
                 Logger.LogError(e, e.Message);
@@ -75,6 +80,11 @@ namespace AlexGolikov.UrlShortener.Services
         {
             try
             {
+                if (shortUrl?.Url == null)
+                {
+                    throw new NullReferenceException("ShortUrlDto is null");
+                }
+
                 var shortUrlEntity = UnitOfWork.GetRepository<ShortUrl>()
                     .Get(url => url.Url == shortUrl.Url)
                     .FirstOrDefault();
@@ -96,6 +106,17 @@ namespace AlexGolikov.UrlShortener.Services
             {
                 Logger.LogError(e, e.Message);
                 return new ServiceResult<OriginalUrlDto>(new InternalServerException());
+            }
+        }
+
+        private void CheckValidation(string url)
+        {
+            var isUrl = Uri.TryCreate(url, UriKind.Absolute, out var uriResult)
+                        && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
+            if (!isUrl)
+            {
+                throw new ValidationException($"{url} is not url.");
             }
         }
     }

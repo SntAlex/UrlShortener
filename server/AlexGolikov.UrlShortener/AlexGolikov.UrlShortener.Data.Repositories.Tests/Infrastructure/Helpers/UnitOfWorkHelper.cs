@@ -15,7 +15,7 @@ namespace AlexGolikov.UrlShortener.Data.Repositories.Tests.Infrastructure.Helper
             unitOfWork.Setup(m => m.GetRepository<ShortUrl>()).Returns(new Repository<ShortUrl>(context));
 
             unitOfWork.Setup(m => m.Commit()).Callback(() => context.SaveChanges(true));
-
+            unitOfWork.Setup(m => m.Dispose()).Callback(() => context.Dispose());
             return unitOfWork;
         }
     }

@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using AlexGolikov.UrlShortener.Domain.Models.Dtos.Base;
+﻿using AlexGolikov.UrlShortener.Domain.Models.Dtos.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace AlexGolikov.UrlShortener.Domain.Models.Dtos
 {

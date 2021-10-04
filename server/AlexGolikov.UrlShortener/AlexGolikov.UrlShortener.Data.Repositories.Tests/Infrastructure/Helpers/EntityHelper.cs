@@ -24,6 +24,7 @@ namespace AlexGolikov.UrlShortener.Data.Repositories.Tests.Infrastructure.Helper
             {
                 Id = Guid.Parse(id),
                 CreationDate = DateTime.Now,
+                Url = "qweewq",
                 OriginalUrlId = Guid.Parse(originalUrlId)
             };
         }

@@ -3,9 +3,9 @@ using AlexGolikov.UrlShortener.Domain.Contracts.Repositories;
 
 namespace AlexGolikov.UrlShortener.Data.Repositories.Tests.Infrastructure.Fixtures
 {
-    public class UnitOfWorkFixture
+    public static class UnitOfWorkFixture
     {
-        public IUnitOfWork Create()
+        public static IUnitOfWork Create()
         {
             var mock = UnitOfWorkHelper.GetMock();
             return mock.Object;
