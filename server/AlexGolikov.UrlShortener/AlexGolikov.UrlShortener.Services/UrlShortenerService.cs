@@ -20,13 +20,21 @@ namespace AlexGolikov.UrlShortener.Services
     public class UrlShortenerService : BaseService<UrlShortenerService>, IUrlShortenerService
     {
         #region constructor
-        public UrlShortenerService(IMapper mapper, IUnitOfWork unitOfWork, ILogger<UrlShortenerService> logger) : base(mapper, unitOfWork, logger) { }
+        public UrlShortenerService(IMapper mapper, IUnitOfWork unitOfWork, ILogger<UrlShortenerService> logger) 
+            : base(mapper, unitOfWork, logger) { }
         #endregion
 
         public IServiceResult<ShortUrlDto> CreateShortUrl(OriginalUrlDto originalUrl)
         {
             try
             {
+                var isUrl = Uri.TryCreate(originalUrl.Url, UriKind.Absolute, out var uriResult)
+                             && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+                if (!isUrl)
+                {
+                    throw new Exception("It is not url");
+                }
+
                 var originalUrlEntity = UnitOfWork.GetRepository<OriginalUrl>()
                     .Get(url => url.Url == originalUrl.Url)
                     .FirstOrDefault();

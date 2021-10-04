@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.10" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+    <PackageReference Include="coverlet.collector" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AlexGolikov.UrlShortener.Data.Repositories\AlexGolikov.UrlShortener.Data.Repositories.csproj" />
+    <ProjectReference Include="..\AlexGolikov.UrlShortener.Domain\AlexGolikov.UrlShortener.Domain.csproj" />
+    <ProjectReference Include="..\AlexGolikov.UrlShortener.Services\AlexGolikov.UrlShortener.Services.csproj" />
+    <ProjectReference Include="..\AlexGolikov.UrlShortener.WebApi\AlexGolikov.UrlShortener.WebApi.csproj" />
+  </ItemGroup>
+
+</Project>

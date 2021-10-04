@@ -1,4 +1,5 @@
-﻿using AlexGolikov.UrlShortener.Domain.Models.Dtos.Base;
+﻿using System.ComponentModel.DataAnnotations;
+using AlexGolikov.UrlShortener.Domain.Models.Dtos.Base;
 
 namespace AlexGolikov.UrlShortener.Domain.Models.Dtos
 {
@@ -10,6 +11,7 @@ namespace AlexGolikov.UrlShortener.Domain.Models.Dtos
         /// <summary>
         /// Original url
         /// </summary>
+        [Url]
         public string Url { get; set; }
     }
 }
