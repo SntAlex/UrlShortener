@@ -11,7 +11,6 @@ namespace AlexGolikov.UrlShortener.Domain.Models.Dtos
         /// <summary>
         /// Original url
         /// </summary>
-        [Url]
         public string Url { get; set; }
     }
 }
